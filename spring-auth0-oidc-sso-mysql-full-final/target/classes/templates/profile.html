@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>User Profile</title></head>
+<body>
+<h1>User Profile</h1>
+<div th:if="${user != null}">
+    <p><b>ID:</b> <span th:text="${user.id}"></span></p>
+    <p><b>Name:</b> <span th:text="${user.name}"></span></p>
+    <p><b>Email:</b> <span th:text="${user.email}"></span></p>
+    <p><b>Auth0 ID:</b> <span th:text="${user.auth0Id}"></span></p>
+</div>
+<h2>Raw OIDC Claims</h2>
+<ul>
+    <li th:each="entry : ${claims}">
+        <b th:text="${entry.key}"></b>: <span th:text="${entry.value}"></span>
+    </li>
+</ul>
+<p><a href="/tokens">View Tokens</a></p>
+<form th:action="@{/perform-logout}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
